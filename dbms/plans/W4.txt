@@ -1,14 +1,18 @@
 === W4 run 1 ===
-Planning Time: 0.095 ms
+Insert on messages  (cost=0.00..0.01 rows=1 width=180) (actual time=0.325..0.328 rows=1 loops=1)
+  Buffers: shared hit=12 dirtied=1
+  ->  Result  (cost=0.00..0.01 rows=1 width=180) (actual time=0.002..0.003 rows=1 loops=1)
+Planning Time: 0.065 ms
 Execution Time: 0.340 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W4 run 2 ===
-Planning Time: 0.088 ms
+Insert on messages  (cost=0.00..0.01 rows=1 width=180) (actual time=0.308..0.311 rows=1 loops=1)
+  Buffers: shared hit=12 dirtied=1
+Planning Time: 0.060 ms
 Execution Time: 0.320 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W4 run 3 ===
-Planning Time: 0.091 ms
+Insert on messages  (cost=0.00..0.01 rows=1 width=180) (actual time=0.302..0.305 rows=1 loops=1)
+  Buffers: shared hit=12 dirtied=1
+Planning Time: 0.058 ms
 Execution Time: 0.315 ms
-Buffers: shared hit=48 read=0 dirtied=0

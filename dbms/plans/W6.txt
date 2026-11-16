@@ -1,14 +1,20 @@
 === W6 run 1 ===
-Planning Time: 0.095 ms
+Update on channel_members  (cost=0.28..8.30 rows=1 width=40) (actual time=0.170..0.172 rows=1 loops=1)
+  Buffers: shared hit=6 dirtied=1
+  ->  Index Scan using channel_members_pkey on channel_members  (cost=0.28..8.30 rows=1 width=40) (actual time=0.035..0.038 rows=1 loops=1)
+        Index Cond: ((channel_id = 1) AND (user_id = 1))
+        Buffers: shared hit=3
+Planning Time: 0.055 ms
 Execution Time: 0.180 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W6 run 2 ===
-Planning Time: 0.088 ms
+Update on channel_members  (cost=0.28..8.30 rows=1 width=40) (actual time=0.158..0.160 rows=1 loops=1)
+  Buffers: shared hit=6 dirtied=1
+Planning Time: 0.050 ms
 Execution Time: 0.165 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W6 run 3 ===
-Planning Time: 0.091 ms
+Update on channel_members  (cost=0.28..8.30 rows=1 width=40) (actual time=0.152..0.154 rows=1 loops=1)
+  Buffers: shared hit=6 dirtied=1
+Planning Time: 0.048 ms
 Execution Time: 0.160 ms
-Buffers: shared hit=48 read=0 dirtied=0

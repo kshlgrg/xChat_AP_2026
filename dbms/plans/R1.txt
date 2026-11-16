@@ -1,14 +1,50 @@
 === R1 run 1 ===
+Nested Loop Left Join  (cost=0.56..16.62 rows=1 width=384) (actual time=0.115..0.122 rows=1 loops=1)
+  Buffers: shared hit=48
+  ->  Bitmap Heap Scan on users u  (cost=0.28..8.30 rows=1 width=304) (actual time=0.082..0.086 rows=1 loops=1)
+        Recheck Cond: ((email = 'kushal.garg@xchat.io'::text) OR (username = 'kushal'::text))
+        Buffers: shared hit=44
+        ->  BitmapOr  (cost=0.28..0.28 rows=2 width=0) (actual time=0.055..0.057 rows=0 loops=1)
+              ->  Bitmap Index Scan on users_email_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.038..0.039 rows=1 loops=1)
+                    Index Cond: (email = 'kushal.garg@xchat.io'::text)
+              ->  Bitmap Index Scan on users_username_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.015..0.016 rows=1 loops=1)
+                    Index Cond: (username = 'kushal'::text)
+  ->  Index Scan using user_presence_pkey on user_presence up  (cost=0.28..8.30 rows=1 width=88) (actual time=0.028..0.031 rows=1 loops=1)
+        Index Cond: (user_id = u.user_id)
+        Buffers: shared hit=4
 Planning Time: 0.095 ms
 Execution Time: 0.125 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R1 run 2 ===
+Nested Loop Left Join  (cost=0.56..16.62 rows=1 width=384) (actual time=0.108..0.115 rows=1 loops=1)
+  Buffers: shared hit=48
+  ->  Bitmap Heap Scan on users u  (cost=0.28..8.30 rows=1 width=304) (actual time=0.076..0.080 rows=1 loops=1)
+        Recheck Cond: ((email = 'kushal.garg@xchat.io'::text) OR (username = 'kushal'::text))
+        Buffers: shared hit=44
+        ->  BitmapOr  (cost=0.28..0.28 rows=2 width=0) (actual time=0.051..0.053 rows=0 loops=1)
+              ->  Bitmap Index Scan on users_email_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.035..0.036 rows=1 loops=1)
+                    Index Cond: (email = 'kushal.garg@xchat.io'::text)
+              ->  Bitmap Index Scan on users_username_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.014..0.015 rows=1 loops=1)
+                    Index Cond: (username = 'kushal'::text)
+  ->  Index Scan using user_presence_pkey on user_presence up  (cost=0.28..8.30 rows=1 width=88) (actual time=0.027..0.029 rows=1 loops=1)
+        Index Cond: (user_id = u.user_id)
+        Buffers: shared hit=4
 Planning Time: 0.088 ms
 Execution Time: 0.118 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R1 run 3 ===
+Nested Loop Left Join  (cost=0.56..16.62 rows=1 width=384) (actual time=0.102..0.109 rows=1 loops=1)
+  Buffers: shared hit=48
+  ->  Bitmap Heap Scan on users u  (cost=0.28..8.30 rows=1 width=304) (actual time=0.072..0.076 rows=1 loops=1)
+        Recheck Cond: ((email = 'kushal.garg@xchat.io'::text) OR (username = 'kushal'::text))
+        Buffers: shared hit=44
+        ->  BitmapOr  (cost=0.28..0.28 rows=2 width=0) (actual time=0.048..0.050 rows=0 loops=1)
+              ->  Bitmap Index Scan on users_email_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.033..0.034 rows=1 loops=1)
+                    Index Cond: (email = 'kushal.garg@xchat.io'::text)
+              ->  Bitmap Index Scan on users_username_key  (cost=0.00..0.14 rows=1 width=0) (actual time=0.013..0.014 rows=1 loops=1)
+                    Index Cond: (username = 'kushal'::text)
+  ->  Index Scan using user_presence_pkey on user_presence up  (cost=0.28..8.30 rows=1 width=88) (actual time=0.025..0.028 rows=1 loops=1)
+        Index Cond: (user_id = u.user_id)
+        Buffers: shared hit=4
 Planning Time: 0.091 ms
 Execution Time: 0.112 ms
-Buffers: shared hit=48 read=0 dirtied=0

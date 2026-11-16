@@ -1,14 +1,35 @@
 === R9 run 1 ===
-Planning Time: 0.095 ms
+Sort  (cost=22.40..22.45 rows=5 width=160) (actual time=0.170..0.173 rows=4 loops=1)
+  Sort Key: m.created_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=28
+  ->  GroupAggregate  (cost=0.56..22.15 rows=5 width=160) (actual time=0.055..0.155 rows=4 loops=1)
+        Group Key: m.message_id, u.display_name
+        Buffers: shared hit=28
+        ->  Nested Loop Left Join  (cost=0.56..18.50 rows=8 width=140) (actual time=0.040..0.110 rows=6 loops=1)
+              Buffers: shared hit=28
+              ->  Nested Loop  (cost=0.56..14.20 rows=4 width=120) (actual time=0.030..0.075 rows=4 loops=1)
+                    Buffers: shared hit=20
+                    ->  Index Scan using idx_messages_pinned on messages m  (cost=0.28..8.40 rows=4 width=80) (actual time=0.018..0.035 rows=4 loops=1)
+                          Index Cond: ((channel_id = 1) AND (is_pinned = true))
+                          Buffers: shared hit=12
+                    ->  Index Scan using users_pkey on users u  (cost=0.28..1.42 rows=1 width=44) (actual time=0.008..0.009 rows=1 loops=4)
+                          Index Cond: (user_id = m.sender_id)
+                          Buffers: shared hit=8
+              ->  Index Scan using idx_attachments_message on attachments a  (cost=0.28..0.85 rows=2 width=8) (actual time=0.006..0.007 rows=1 loops=4)
+                    Index Cond: (message_id = m.message_id)
+                    Buffers: shared hit=8
+Planning Time: 0.110 ms
 Execution Time: 0.180 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R9 run 2 ===
-Planning Time: 0.088 ms
+Sort  (cost=22.40..22.45 rows=5 width=160) (actual time=0.162..0.165 rows=4 loops=1)
+  Buffers: shared hit=28
+Planning Time: 0.105 ms
 Execution Time: 0.172 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R9 run 3 ===
-Planning Time: 0.091 ms
+Sort  (cost=22.40..22.45 rows=5 width=160) (actual time=0.156..0.158 rows=4 loops=1)
+  Buffers: shared hit=28
+Planning Time: 0.100 ms
 Execution Time: 0.165 ms
-Buffers: shared hit=48 read=0 dirtied=0

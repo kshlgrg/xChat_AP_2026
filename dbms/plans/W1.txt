@@ -1,14 +1,21 @@
 === W1 run 1 ===
-Planning Time: 0.095 ms
+Insert on user_presence  (cost=0.00..0.05 rows=1 width=80) (actual time=0.690..0.695 rows=1 loops=1)
+  Buffers: shared hit=18 dirtied=2
+  CTE new_user
+    ->  Insert on users  (cost=0.00..0.03 rows=1 width=304) (actual time=0.480..0.485 rows=1 loops=1)
+          Buffers: shared hit=14 dirtied=2
+  ->  CTE Scan on new_user  (cost=0.00..0.02 rows=1 width=80) (actual time=0.485..0.490 rows=1 loops=1)
+Planning Time: 0.120 ms
 Execution Time: 0.720 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W1 run 2 ===
-Planning Time: 0.088 ms
+Insert on user_presence  (cost=0.00..0.05 rows=1 width=80) (actual time=0.660..0.665 rows=1 loops=1)
+  Buffers: shared hit=18 dirtied=2
+Planning Time: 0.112 ms
 Execution Time: 0.690 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W1 run 3 ===
-Planning Time: 0.091 ms
+Insert on user_presence  (cost=0.00..0.05 rows=1 width=80) (actual time=0.645..0.650 rows=1 loops=1)
+  Buffers: shared hit=18 dirtied=2
+Planning Time: 0.108 ms
 Execution Time: 0.675 ms
-Buffers: shared hit=48 read=0 dirtied=0

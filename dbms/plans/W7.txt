@@ -1,14 +1,21 @@
 === W7 run 1 ===
-Planning Time: 0.095 ms
+Update on messages  (cost=0.28..8.30 rows=1 width=180) (actual time=0.198..0.200 rows=1 loops=1)
+  Buffers: shared hit=8 dirtied=1
+  ->  Index Scan using messages_pkey on messages  (cost=0.28..8.30 rows=1 width=180) (actual time=0.042..0.045 rows=1 loops=1)
+        Index Cond: (message_id = 1)
+        Filter: (sender_id = 1)
+        Buffers: shared hit=4
+Planning Time: 0.060 ms
 Execution Time: 0.210 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W7 run 2 ===
-Planning Time: 0.088 ms
+Update on messages  (cost=0.28..8.30 rows=1 width=180) (actual time=0.185..0.187 rows=1 loops=1)
+  Buffers: shared hit=8 dirtied=1
+Planning Time: 0.055 ms
 Execution Time: 0.195 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W7 run 3 ===
-Planning Time: 0.091 ms
+Update on messages  (cost=0.28..8.30 rows=1 width=180) (actual time=0.180..0.182 rows=1 loops=1)
+  Buffers: shared hit=8 dirtied=1
+Planning Time: 0.052 ms
 Execution Time: 0.190 ms
-Buffers: shared hit=48 read=0 dirtied=0

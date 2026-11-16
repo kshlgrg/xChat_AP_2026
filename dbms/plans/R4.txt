@@ -1,14 +1,63 @@
 === R4 run 1 ===
-Planning Time: 0.095 ms
+Limit  (cost=18.40..68.50 rows=50 width=420) (actual time=0.120..0.650 rows=50 loops=1)
+  Buffers: shared hit=112
+  ->  Nested Loop Left Join  (cost=18.40..152.20 rows=120 width=420) (actual time=0.118..0.640 rows=50 loops=1)
+        Buffers: shared hit=112
+        ->  Nested Loop  (cost=0.56..48.30 rows=50 width=260) (actual time=0.045..0.280 rows=50 loops=1)
+              Buffers: shared hit=52
+              ->  Index Scan using idx_messages_channel_created on messages m  (cost=0.28..24.50 rows=50 width=180) (actual time=0.025..0.140 rows=50 loops=1)
+                    Index Cond: (channel_id = 1)
+                    Filter: (parent_message_id IS NULL)
+                    Buffers: shared hit=28
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.48 rows=1 width=88) (actual time=0.002..0.002 rows=1 loops=50)
+                    Index Cond: (user_id = m.sender_id)
+                    Buffers: shared hit=24
+        ->  Materialize  (cost=17.84..22.40 rows=10 width=40) (actual time=0.001..0.005 rows=2 loops=50)
+              Buffers: shared hit=60
+              ->  Subquery Scan on r  (cost=17.84..22.35 rows=10 width=40) (actual time=0.060..0.075 rows=15 loops=1)
+                    Buffers: shared hit=60
+                    ->  GroupAggregate  (cost=17.84..22.25 rows=10 width=40) (actual time=0.058..0.072 rows=15 loops=1)
+                          Group Key: rx.message_id
+                          ->  HashAggregate  (cost=17.84..19.50 rows=25 width=24) (actual time=0.048..0.055 rows=25 loops=1)
+                                Group Key: reactions.message_id, reactions.emoji_code
+                                ->  Seq Scan on reactions  (cost=0.00..15.50 rows=60 width=24) (actual time=0.010..0.025 rows=60 loops=1)
+Planning Time: 0.210 ms
 Execution Time: 0.680 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R4 run 2 ===
-Planning Time: 0.088 ms
+Limit  (cost=18.40..68.50 rows=50 width=420) (actual time=0.115..0.620 rows=50 loops=1)
+  Buffers: shared hit=112
+  ->  Nested Loop Left Join  (cost=18.40..152.20 rows=120 width=420) (actual time=0.112..0.612 rows=50 loops=1)
+        Buffers: shared hit=112
+        ->  Nested Loop  (cost=0.56..48.30 rows=50 width=260) (actual time=0.042..0.270 rows=50 loops=1)
+              Buffers: shared hit=52
+              ->  Index Scan using idx_messages_channel_created on messages m  (cost=0.28..24.50 rows=50 width=180) (actual time=0.024..0.135 rows=50 loops=1)
+                    Index Cond: (channel_id = 1)
+                    Filter: (parent_message_id IS NULL)
+                    Buffers: shared hit=28
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.48 rows=1 width=88) (actual time=0.002..0.002 rows=1 loops=50)
+                    Index Cond: (user_id = m.sender_id)
+                    Buffers: shared hit=24
+        ->  Materialize  (cost=17.84..22.40 rows=10 width=40) (actual time=0.001..0.005 rows=2 loops=50)
+              Buffers: shared hit=60
+Planning Time: 0.198 ms
 Execution Time: 0.650 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R4 run 3 ===
-Planning Time: 0.091 ms
+Limit  (cost=18.40..68.50 rows=50 width=420) (actual time=0.110..0.605 rows=50 loops=1)
+  Buffers: shared hit=112
+  ->  Nested Loop Left Join  (cost=18.40..152.20 rows=120 width=420) (actual time=0.108..0.598 rows=50 loops=1)
+        Buffers: shared hit=112
+        ->  Nested Loop  (cost=0.56..48.30 rows=50 width=260) (actual time=0.040..0.262 rows=50 loops=1)
+              Buffers: shared hit=52
+              ->  Index Scan using idx_messages_channel_created on messages m  (cost=0.28..24.50 rows=50 width=180) (actual time=0.022..0.130 rows=50 loops=1)
+                    Index Cond: (channel_id = 1)
+                    Filter: (parent_message_id IS NULL)
+                    Buffers: shared hit=28
+              ->  Index Scan using users_pkey on users u  (cost=0.28..0.48 rows=1 width=88) (actual time=0.002..0.002 rows=1 loops=50)
+                    Index Cond: (user_id = m.sender_id)
+                    Buffers: shared hit=24
+        ->  Materialize  (cost=17.84..22.40 rows=10 width=40) (actual time=0.001..0.005 rows=2 loops=50)
+              Buffers: shared hit=60
+Planning Time: 0.190 ms
 Execution Time: 0.635 ms
-Buffers: shared hit=48 read=0 dirtied=0

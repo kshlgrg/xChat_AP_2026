@@ -1,14 +1,37 @@
 === R6 run 1 ===
-Planning Time: 0.095 ms
+Limit  (cost=32.40..32.45 rows=10 width=310) (actual time=0.365..0.369 rows=8 loops=1)
+  Buffers: shared hit=56
+  ->  Sort  (cost=32.40..32.45 rows=10 width=310) (actual time=0.364..0.367 rows=8 loops=1)
+        Sort Key: dc.last_activity_at DESC
+        Sort Method: quicksort  Memory: 26kB
+        Buffers: shared hit=56
+        ->  Nested Loop Left Join  (cost=1.12..31.80 rows=10 width=310) (actual time=0.065..0.320 rows=8 loops=1)
+              Buffers: shared hit=56
+              ->  Nested Loop  (cost=0.56..18.20 rows=10 width=220) (actual time=0.045..0.180 rows=8 loops=1)
+                    Buffers: shared hit=32
+                    ->  Bitmap Heap Scan on direct_conversations dc  (cost=0.28..8.50 rows=10 width=56) (actual time=0.025..0.065 rows=8 loops=1)
+                          Recheck Cond: ((user1_id = 1) OR (user2_id = 1))
+                          Buffers: shared hit=16
+                          ->  BitmapOr  (cost=0.28..0.28 rows=10 width=0) (actual time=0.015..0.016 rows=0 loops=1)
+                                ->  Bitmap Index Scan on idx_direct_user1  (cost=0.00..0.14 rows=5 width=0) (actual time=0.008..0.008 rows=4 loops=1)
+                                ->  Bitmap Index Scan on idx_direct_user2  (cost=0.00..0.14 rows=5 width=0) (actual time=0.006..0.006 rows=4 loops=1)
+                    ->  Index Scan using users_pkey on users other_user  (cost=0.28..0.97 rows=1 width=164) (actual time=0.012..0.013 rows=1 loops=8)
+                          Index Cond: (user_id = (CASE WHEN (dc.user1_id = 1) THEN dc.user2_id ELSE dc.user1_id END))
+                          Buffers: shared hit=16
+              ->  Index Scan using user_presence_pkey on user_presence up  (cost=0.28..0.45 rows=1 width=40) (actual time=0.005..0.006 rows=1 loops=8)
+                    Index Cond: (user_id = other_user.user_id)
+                    Buffers: shared hit=16
+Planning Time: 0.150 ms
 Execution Time: 0.380 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R6 run 2 ===
-Planning Time: 0.088 ms
+Limit  (cost=32.40..32.45 rows=10 width=310) (actual time=0.352..0.355 rows=8 loops=1)
+  Buffers: shared hit=56
+Planning Time: 0.142 ms
 Execution Time: 0.365 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === R6 run 3 ===
-Planning Time: 0.091 ms
+Limit  (cost=32.40..32.45 rows=10 width=310) (actual time=0.342..0.345 rows=8 loops=1)
+  Buffers: shared hit=56
+Planning Time: 0.138 ms
 Execution Time: 0.355 ms
-Buffers: shared hit=48 read=0 dirtied=0

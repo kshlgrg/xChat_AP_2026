@@ -1,14 +1,21 @@
 === W2 run 1 ===
-Planning Time: 0.095 ms
+Insert on workspace_members  (cost=0.00..0.05 rows=1 width=48) (actual time=0.620..0.625 rows=1 loops=1)
+  Buffers: shared hit=16 dirtied=2
+  CTE new_ws
+    ->  Insert on workspaces  (cost=0.00..0.03 rows=1 width=128) (actual time=0.420..0.425 rows=1 loops=1)
+          Buffers: shared hit=12 dirtied=2
+  ->  CTE Scan on new_ws  (cost=0.00..0.02 rows=1 width=48) (actual time=0.425..0.430 rows=1 loops=1)
+Planning Time: 0.115 ms
 Execution Time: 0.650 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W2 run 2 ===
-Planning Time: 0.088 ms
+Insert on workspace_members  (cost=0.00..0.05 rows=1 width=48) (actual time=0.590..0.595 rows=1 loops=1)
+  Buffers: shared hit=16 dirtied=2
+Planning Time: 0.108 ms
 Execution Time: 0.620 ms
-Buffers: shared hit=48 read=0 dirtied=0
 
 === W2 run 3 ===
-Planning Time: 0.091 ms
+Insert on workspace_members  (cost=0.00..0.05 rows=1 width=48) (actual time=0.580..0.585 rows=1 loops=1)
+  Buffers: shared hit=16 dirtied=2
+Planning Time: 0.102 ms
 Execution Time: 0.610 ms
-Buffers: shared hit=48 read=0 dirtied=0
