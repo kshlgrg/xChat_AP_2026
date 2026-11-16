@@ -28,9 +28,10 @@ All deliverables required by the course specification are housed under the [`dbm
 | Checkpoint | Due Date | AP Deliverable Path | Status | Key Description |
 |:---:|:---:|:---|:---:|:---|
 | **CP1** | **Mon 16 Nov 2026** | [`dbms/01_normalization.md`](dbms/01_normalization.md) | **COMPLETE** | Full formal normalization (UNF $\rightarrow$ 1NF $\rightarrow$ 2NF $\rightarrow$ 3NF $\rightarrow$ BCNF) with functional dependencies at each step. |
-| **CP2** | **Tue 17 Nov 2026** | [`dbms/02_er_diagram.svg`](dbms/02_er_diagram.svg)<br>[`dbms/02_er_diagram.mermaid`](dbms/02_er_diagram.mermaid)<br>[`dbms/03_schema.sql`](dbms/03_schema.sql) | **COMPLETE** | Entity-Relationship diagrams (vector SVG & Mermaid) and complete PostgreSQL DDL with keys, foreign keys, cascade rules, and check constraints. |
+| **CP2** | **Tue 17 Nov 2026** | [`dbms/02_er_diagram.png`](dbms/02_er_diagram.png)<br>[`dbms/02_er_diagram.svg`](dbms/02_er_diagram.svg)<br>[`dbms/02_er_diagram.mermaid`](dbms/02_er_diagram.mermaid)<br>[`dbms/03_schema.sql`](dbms/03_schema.sql) | **COMPLETE** | Entity-Relationship diagrams (high-res PNG, vector SVG, and Mermaid source) and complete PostgreSQL DDL with keys, foreign keys, cascade rules, and check constraints. |
 | **CP3** | **Thu 19 Nov 2026** | [`dbms/04_queries.sql`](dbms/04_queries.sql) | **COMPLETE** | Full production SQL query suite: 10 READ (`R1`–`R10`) and 8 WRITE (`W1`–`W8`) queries with extensive JOINs, window functions, and CTEs. |
-| **CP4** | **Mon 23 Nov 2026** | [`dbms/05_query_timings.md`](dbms/05_query_timings.md)<br>[`dbms/plans/`](dbms/plans/) | **COMPLETE** | 3-run execution timing table with averages, scan types, and raw `EXPLAIN (ANALYZE, BUFFERS)` execution plans. |
+| **CP4** | **Mon 23 Nov 2026** | [`dbms/05_query_timings.md`](dbms/05_query_timings.md)<br>[`dbms/plans/`](dbms/plans/) | **COMPLETE** | 3-run execution timing table with averages, scan types, and 18 raw `EXPLAIN (ANALYZE, BUFFERS)` execution plan trees. |
+| **CP5** | **Wed 25–26 Nov 2026** | [`dbms/07_viva_defense_guide.md`](dbms/07_viva_defense_guide.md) | **COMPLETE** | Oral viva preparation guide covering schema design rationale, BCNF proofs, concurrency safeguards, and query optimization details. |
 
 ---
 
@@ -43,7 +44,33 @@ The relational architecture comprises 10 normalized tables in schema `xchat`:
 4. `workspace_members`: Member role assignments per organization.
 5. `channels`: Communication spaces within a workspace.
 6. `channel_members`: Channel subscription and read-receipt pointers.
-7. `direct_conversations`: One-on-one private messaging sessions.
+7. `direct_conversations`: One-on-one private messaging sessions with canonical symmetrical ordering.
 8. `messages`: Central communication table supporting channels, direct chats, and threaded replies.
 9. `attachments`: Uploaded media files and documents.
 10. `reactions`: Unique emoji reactions per user per message.
+
+---
+
+## 4. Developer Automation & Quick Start
+
+A dedicated [`Makefile`](Makefile) provides simple commands for local development and CI testing:
+
+```bash
+# Initialize database
+make init-db
+
+# Deploy DDL schema (CP2)
+make schema
+
+# Seed sample data
+make seed
+
+# Run automated relational integrity tests
+make test
+
+# Execute workload queries (CP3)
+make queries
+
+# Run full end-to-end verification (schema -> seed -> test)
+make check
+```
