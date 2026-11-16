@@ -1,0 +1,14 @@
+=== W5 run 1 ===
+Planning Time: 0.095 ms
+Execution Time: 0.220 ms
+Buffers: shared hit=48 read=0 dirtied=0
+
+=== W5 run 2 ===
+Planning Time: 0.088 ms
+Execution Time: 0.205 ms
+Buffers: shared hit=48 read=0 dirtied=0
+
+=== W5 run 3 ===
+Planning Time: 0.091 ms
+Execution Time: 0.200 ms
+Buffers: shared hit=48 read=0 dirtied=0

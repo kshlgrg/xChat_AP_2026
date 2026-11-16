@@ -1,0 +1,14 @@
+=== R4 run 1 ===
+Planning Time: 0.095 ms
+Execution Time: 0.680 ms
+Buffers: shared hit=48 read=0 dirtied=0
+
+=== R4 run 2 ===
+Planning Time: 0.088 ms
+Execution Time: 0.650 ms
+Buffers: shared hit=48 read=0 dirtied=0
+
+=== R4 run 3 ===
+Planning Time: 0.091 ms
+Execution Time: 0.635 ms
+Buffers: shared hit=48 read=0 dirtied=0
