@@ -1,0 +1,108 @@
+erDiagram
+    users ||--o{ workspaces : "owns (1:N)"
+    users ||--o{ workspace_members : "joins (1:N)"
+    workspaces ||--|{ workspace_members : "contains (1:N)"
+    workspaces ||--|{ channels : "has (1:N)"
+    users ||--o{ channels : "creates (1:N)"
+    channels ||--|{ channel_members : "subscribes (1:N)"
+    users ||--o{ channel_members : "participates (1:N)"
+    users ||--o{ direct_conversations : "chats_as_user1 (1:N)"
+    users ||--o{ direct_conversations : "chats_as_user2 (1:N)"
+    users ||--o{ messages : "sends (1:N)"
+    channels ||--o{ messages : "receives (0..1:N)"
+    direct_conversations ||--o{ messages : "hosts (0..1:N)"
+    messages ||--o{ messages : "replies_to (0..1:N)"
+    messages ||--o{ attachments : "includes (1:N)"
+    messages ||--o{ reactions : "receives (1:N)"
+    users ||--o{ reactions : "gives (1:N)"
+    users ||--|| user_presence : "maintains (1:1)"
+
+    users {
+        int user_id PK
+        varchar username UK
+        varchar email UK
+        varchar password_hash
+        varchar display_name
+        varchar avatar_url
+        timestamptz created_at
+        timestamptz last_seen_at
+    }
+
+    user_presence {
+        int user_id PK_FK
+        varchar status
+        varchar custom_status_text
+        timestamptz updated_at
+    }
+
+    workspaces {
+        int workspace_id PK
+        varchar name
+        varchar slug UK
+        int owner_id FK
+        timestamptz created_at
+    }
+
+    workspace_members {
+        int workspace_id PK_FK
+        int user_id PK_FK
+        varchar role
+        timestamptz joined_at
+    }
+
+    channels {
+        int channel_id PK
+        int workspace_id FK
+        varchar name
+        text topic
+        boolean is_private
+        int created_by FK
+        timestamptz created_at
+    }
+
+    channel_members {
+        int channel_id PK_FK
+        int user_id PK_FK
+        varchar role
+        timestamptz joined_at
+        int last_read_message_id
+        boolean notifications_enabled
+    }
+
+    direct_conversations {
+        int conversation_id PK
+        int user1_id FK
+        int user2_id FK
+        timestamptz created_at
+    }
+
+    messages {
+        int message_id PK
+        int channel_id FK "Nullable"
+        int conversation_id FK "Nullable"
+        int sender_id FK
+        int parent_message_id FK "Nullable"
+        text content
+        varchar message_type
+        boolean is_edited
+        boolean is_pinned
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    attachments {
+        int attachment_id PK
+        int message_id FK
+        varchar file_name
+        text file_url
+        bigint file_size_bytes
+        varchar mime_type
+        timestamptz uploaded_at
+    }
+
+    reactions {
+        int message_id PK_FK
+        int user_id PK_FK
+        varchar emoji_code PK
+        timestamptz reacted_at
+    }
