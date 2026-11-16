@@ -1,0 +1,55 @@
+name: xChat PostgreSQL Schema & Query Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-database:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: xchat_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Verify PostgreSQL Connection
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d xchat_db -c "SELECT version();"
+
+      - name: Deploy Relational Schema (CP2)
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d xchat_db -f dbms/03_schema.sql
+
+      - name: Seed Application Data
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d xchat_db -f dbms/06_seed_data.sql
+
+      - name: Execute Relational Integrity Test Suite
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d xchat_db -f tests/test_xchat_integrity.sql
+
+      - name: Execute Workload Queries (CP3)
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d xchat_db -f dbms/04_queries.sql
